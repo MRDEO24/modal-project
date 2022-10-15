@@ -4,9 +4,27 @@
   <!-- <input type="text" ref="name" /> -->
   <!-- <button @click="handleClick">click me</button> -->
   <button @click="toggleModal">open modal</button>
-  <div v-if="showModal">
-    <Modal :header="header" :text="text" theme="sale" @close="toggleModal" />
-  </div>
+  <button @click="toggleModal2">open modal 2</button>
+  <teleport to=".modals" v-if="showModal">
+    <Modal theme="sale" @close="toggleModal">
+      <template v-slot:links>
+        <a href="#">Sign up now</a>
+        <a href="#">More info</a>
+      </template>
+      <h1>Daftar Sekarang Juga!</h1>
+      <p>Coming Up Next the bonus!</p>
+    </Modal>
+  </teleport>
+  <teleport to=".modals" v-if="showModal2">
+    <Modal theme="blk" @close="toggleModal2">
+      <template v-slot:links>
+        <a href="#">Get Black Friday</a>
+        <a href="#">No Ingfo</a>
+      </template>
+      <h1>Black Fiday Is Coming</h1>
+      <p>Coming Up October 30th</p>
+    </Modal>
+  </teleport>
 </template>
 
 <script>
@@ -18,9 +36,8 @@ export default {
   data() {
     return {
       title: "My First LuVue App :)",
-      header:"Daftar Sekarang Juga!",
-      text:"Coming Up Next the bonus!",
-      showModal:false
+      showModal: false,
+      showModal2:false,
     };
   },
   methods: {
@@ -29,22 +46,18 @@ export default {
       this.$refs.name.classList.add("active");
       this.$refs.name.focus();
     },
-    toggleModal(){
-      this.showModal = !this.showModal
-    }
+    toggleModal() {
+      this.showModal = !this.showModal;
+    },
+    toggleModal2() {
+      this.showModal2 = !this.showModal2;
+    },
   },
 };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 h1 {
   border-bottom: 1px solid #ddd;
   display: inline-block;
