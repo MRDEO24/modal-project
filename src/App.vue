@@ -1,9 +1,12 @@
 <template>
   <h1>{{ title }}</h1>
   <br />
-  <input type="text" ref="name" />
-  <button @click="handleClick">click me</button>
-  <Modal />
+  <!-- <input type="text" ref="name" /> -->
+  <!-- <button @click="handleClick">click me</button> -->
+  <button @click="toggleModal">open modal</button>
+  <div v-if="showModal">
+    <Modal :header="header" :text="text" theme="sale" @close="toggleModal" />
+  </div>
 </template>
 
 <script>
@@ -15,6 +18,9 @@ export default {
   data() {
     return {
       title: "My First LuVue App :)",
+      header:"Daftar Sekarang Juga!",
+      text:"Coming Up Next the bonus!",
+      showModal:false
     };
   },
   methods: {
@@ -23,6 +29,9 @@ export default {
       this.$refs.name.classList.add("active");
       this.$refs.name.focus();
     },
+    toggleModal(){
+      this.showModal = !this.showModal
+    }
   },
 };
 </script>
